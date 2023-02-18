@@ -1,9 +1,8 @@
-CFLAGS=-Wall -g
+CFLAGS = -Wall -g
 
-all: exercise3
+EXERCISE := ex3
 
-exercise3:
-	make ex3
+all: $(EXERCISE)
 
 clean:
-	rm -f ex3
+	rm -f $(EXERCISE)
