@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Filename      : ex1.c
+ * Filename      : ex3.c
  * Created       : Sat Feb 18 2023
  * Author        : zolodev
  * Github        : https://github.com/zolodev
@@ -8,13 +8,13 @@
 
 #include <stdio.h>
 
-/* This is a comment. */
-int main(int argc, char *argv[])
+int main()
 {
-    int distance = 100;
+    int age = 10;
+    int height = 72;
 
-    // This is also a comment
-    printf("You are %d miles away.\n", distance);
+    printf("I am %d years old.\n", age);
+    printf("I am %d inches tall.\n", height);
 
     return 0;
 }

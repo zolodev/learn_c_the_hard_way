@@ -1,3 +1,11 @@
+/*****************************************************************************
+ * Filename      : ex1.c
+ * Created       : Sat Feb 18 2023
+ * Author        : zolodev
+ * Github        : https://github.com/zolodev
+ * Description   : 
+*****************************************************************************/
+
 #include <stdio.h>
 
 /* This is a comment. */
