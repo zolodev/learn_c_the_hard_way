@@ -3,7 +3,7 @@
  * Created       : Sat Feb 18 2023
  * Author        : zolodev
  * Github        : https://github.com/zolodev
- * Description   : 
+ * Description   : if-else statements
 *****************************************************************************/
 
 #include <stdio.h>

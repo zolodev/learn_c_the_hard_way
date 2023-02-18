@@ -3,7 +3,7 @@
  * Created       : Sat Feb 18 2023
  * Author        : zolodev
  * Github        : https://github.com/zolodev
- * Description   : 
+ * Description   : Multiple examples of variables types
 *****************************************************************************/
 
 #include <stdio.h>
