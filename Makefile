@@ -1,8 +1,10 @@
 CFLAGS = -Wall -g
 
-EXERCISE := ex
+EXERCISE := $(patsubst %.c, %.o, $(wildcard *.c))
+BIN := $(patsubst %.c, %, $(wildcard *.c))
 
-all: $(EXERCISE)
+all: $(EXERCISE) $(BIN)
+	$(CC) $(CFLAGS) $(EXERCISE) -o $(BIN)
 
 clean:
-	rm -f $(EXERCISE)
+	rm -f $(EXERCISE) $(BIN)
