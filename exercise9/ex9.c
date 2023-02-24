@@ -4,22 +4,17 @@
  * Author        : zolodev
  * Github        : https://github.com/zolodev
  * Description   : While-loop
-*****************************************************************************/
+ *****************************************************************************/
 
 #include <stdio.h>
 
 int main(int argc, char *argv[])
 {
     int i = 0;
-    while (i < 25)
+    do
     {
-        printf("%d", i);
-        i++;
-    }
-
-    // need this to add a final newline
-    printf("\n");
+        printf("%d\n", ++i);
+    } while (i = 0 < 25);
 
     return 0;
-
 }
