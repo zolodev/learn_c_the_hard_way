@@ -13,7 +13,7 @@ all: $(OBJ)
 # https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html
 build/%.o : %.c
 	mkdir -p $(@D)
-	$(CC) $(CFLAGS) -c $< -o $@	
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	rm -rf build
