@@ -9,7 +9,7 @@ all: $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(BIN)
 
 # Build OBJ(*.o) files to build/*.o
-# Using Autonatic Variables
+# Using Automatic Variables
 # https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html
 build/%.o : %.c
 	mkdir -p $(@D)
