@@ -2,7 +2,7 @@ CFLAGS = -Wall -g
 
 #BIN := $(patsubst %.c, %.out, $(wildcard *.c))
 #BIN := $(patsubst %.c, %, $(wildcard *.c))
-BIN := $(patsubst %.c, build/%.out, $(wildcard *.c))
+BIN := $(patsubst %.c, build/%, $(wildcard *.c))
 OBJ := $(patsubst %.c, build/%.o, $(wildcard *.c))
 
 all: $(OBJ)
