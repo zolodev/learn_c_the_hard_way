@@ -2,8 +2,8 @@ CFLAGS = -Wall -g
 
 #BIN := $(patsubst %.c, %.out, $(wildcard *.c))
 #BIN := $(patsubst %.c, %, $(wildcard *.c))
-BIN := $(patsubst %.c, build/%, $(wildcard *.c))
-OBJ := $(patsubst %.c, build/%.o, $(wildcard *.c))
+BIN := $(patsubst %.c,build/%, $(wildcard *.c))
+OBJ := $(patsubst %.c,build/%.o, $(wildcard *.c))
 
 all: $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(BIN)
@@ -14,6 +14,9 @@ all: $(OBJ)
 build/%.o : %.c
 	mkdir -p $(@D)
 	$(CC) $(CFLAGS) -c $< -o $@
+
+run:
+	./$(BIN)
 
 clean:
 	rm -rf build
