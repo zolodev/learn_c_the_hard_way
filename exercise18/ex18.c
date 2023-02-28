@@ -109,6 +109,16 @@ void test_sorting(int *numbers, int count, compare_cb cmp)
 
     printf("\n");
 
+    // Adding some extra code to print out the cmp functions
+    // just for fun to see what one can do
+    unsigned char *data = (unsigned char *)cmp;
+    for (i = 0; i < 25; i++)
+    {
+        printf("%02x:", data[i]);
+    }
+
+    printf("\n");
+
     free(sorted);
 }
 
