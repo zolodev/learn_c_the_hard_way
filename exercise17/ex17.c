@@ -160,6 +160,9 @@ void Database_set(struct Connection *conn, int id, const char *name, const char 
     addr->set = 1;
 
     // WARNING: bug, read the "How to Break It" and fix this
+    // Fixed the bug by adding MAX_DATA - 1 instead of just MAX_DATA.
+    // This will add the '\0' at the end.
+    // alternative is to use strncat(dest, src, len_limit) instead.
     char *res = strncpy(addr->name, name, MAX_DATA - 1);
 
     // demonstrate the strncpy bug
@@ -168,7 +171,7 @@ void Database_set(struct Connection *conn, int id, const char *name, const char 
         die("Name copy failed", conn);
     }
 
-    res = strncpy(addr->email, email, MAX_DATA - 1);
+    res = strncpy(addr->email, email, MAX_DATA - 1); // added: -1
     if (!res)
     {
         die("Email copy failed", conn);
