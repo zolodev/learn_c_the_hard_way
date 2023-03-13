@@ -1,4 +1,4 @@
-CFLAGS = -Wall -g
+CFLAGS = -Wall -g -DNDEBUG
 
 #BIN := $(patsubst %.c, %.out, $(wildcard *.c))
 #BIN := $(patsubst %.c, %, $(wildcard *.c))
