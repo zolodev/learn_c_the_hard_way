@@ -3,7 +3,7 @@
  * Created       : Wed Mar 15 2023
  * Author        : Zolo
  * Github        : https://github.com/zolodev
- * Description   :
+ * Description   : Exercise 22 main file
  *****************************************************************************/
 
 #include "dbg.h"
