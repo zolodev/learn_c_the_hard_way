@@ -17,10 +17,9 @@ void scope_demo(int count)
 
     if (count > 10)
     {
-        // TODO: rename count to number
-        int count = 100; // Shadow variable! Do not do this!
+        int number = 100;
 
-        log_info("count in this scope is: %d", count);
+        log_info("number in this scope is: %d", number);
     }
 
     log_info("count in this scope is: %d", count);
