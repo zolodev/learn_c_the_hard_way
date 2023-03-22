@@ -1,7 +1,9 @@
 # Updated 2023-03-20
 # Changed from cc to clang
 
-CFLAGS = -Wall -g
+#define "_CRT_SECURE_NO_WARNINGS" - To supress warnings.
+#									Because MS warns about strerror()
+CFLAGS = -Wall -g -D _CRT_SECURE_NO_WARNINGS
 
 #BIN := $(patsubst %.c, %.out, $(wildcard *.c))
 #BIN := $(patsubst %.c, %, $(wildcard *.c))
