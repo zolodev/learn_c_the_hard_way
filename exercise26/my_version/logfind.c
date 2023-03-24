@@ -43,7 +43,7 @@ int SearchInDir(char *dir, char *words_to_find[]) {
   int found = 0;
   // Refer http://pubs.opengroup.org/onlinepubs/7990989775/xsh/readdir.html
   while ((de = readdir(dr)) != NULL) {
-    int next = (telldir(de) != NULL);
+    int next = (telldir(dr) > 0L);
     int line = 0;
     // Ignore path '.' and '..' in linux
     if (!strcmp(de->d_name, ".") || !strcmp(de->d_name, "..")) continue;
@@ -94,7 +94,6 @@ int main(int argc, char *argv[]) {
   while ((opt = getopt(argc, argv, "op:")) != -1) {
     switch (opt) {
       case 'p':
-        printf("Path: %s\n", optarg);
         path = optarg;
         break;
       default:
