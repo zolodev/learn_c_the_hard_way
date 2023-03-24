@@ -25,6 +25,13 @@ build/%.o : %.c
 run:
 	./$(BIN)
 
+test:
+	./build/logfind -p ./logfiles Kalle Test lipsum Ipsum ipsum Nisse Test
+	./build/logfind -p ./logfiles Kalle Test lipsum Ipsum ipsum Nisse Test -o
+
+quick:
+	make clean && make && make test
+
 clean:
 	rm -rf build
 #	rm -rf build $(BIN)

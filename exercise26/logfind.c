@@ -31,7 +31,7 @@ error:
   return NULL;
 }
 
-int SearchInDir(char *dir, char *words_to_find[]) {
+int SearchInDir(char *dir, char *words_to_find[], int use_or_pattern) {
   struct dirent *de = NULL;  // Pointer for directory entry
   FILE *fp = NULL;
   char *fullpath = NULL;
@@ -69,6 +69,7 @@ int SearchInDir(char *dir, char *words_to_find[]) {
             } else if (found++ != 0) {
               printf("\t\t| %s (Line: %d)\n", fullpath, line);
             }
+            if (use_or_pattern) break;
           }
         }
 
@@ -88,13 +89,16 @@ error:
 int main(int argc, char *argv[]) {
   check(argc > 1, "Need at least one argument.");
 
-  int opt = 0;
+  int opt, use_or = 0;
   char *path = " ";
 
   while ((opt = getopt(argc, argv, "op:")) != -1) {
     switch (opt) {
       case 'p':
         path = optarg;
+        break;
+      case 'o':
+        use_or = 1;
         break;
       default:
         (opt == '?') ? printf("Unknow option: %c\n", optopt)
@@ -108,10 +112,11 @@ int main(int argc, char *argv[]) {
   printf("-----------------------------------------------------------\n");
   printf("Search Word:\t| Found in File (Line)\n");
   printf("-----------------------------------------------------------\n");
+
   for (; optind < argc; optind++) {
-    char **searchWord = &argv[optind];
-    printf("%s\t\t| ", *searchWord);
-    int found = SearchInDir(path, searchWord);
+    char *searchWord = argv[optind];
+    printf("%s\t\t| ", searchWord);
+    int found = SearchInDir(path, &searchWord, use_or);
 
     if (!found) printf("[Not Found in any file]\n");
     printf("-----------------------------------------------------------\n");
