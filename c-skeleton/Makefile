@@ -7,10 +7,15 @@
 #
 ################################################################################
 
-# Change the target name accordingly
-PROJECT_NAME=libskeleton			# The Projectname
-TARGET=build/libskeleton.a			# Target = The Output
-COMPILER= clang 					# Change compiler between: cc | gcc | clang
+# The Projectname
+PROJECT_NAME=libskeleton
+
+# Target = The Output
+TARGET=build/$(PROJECT_NAME).a
+
+# Change compiler between: gcc | clang
+# Or comment this line to use DEFAULT $(CC)
+CC= clang
 
 
 ################################################################################
@@ -57,7 +62,7 @@ $(TARGET): build $(OBJECTS)
 	ranlib $@
 
 $(SO_TARGET): $(TARGET) $(OBJECTS)
-	$(COMPILER) $(LDFLAGS) -shared -o $@ $(OBJECTS)
+	$(CC) $(LDFLAGS) -shared -o $@ $(OBJECTS)
 
 build:
 	@mkdir -p build
