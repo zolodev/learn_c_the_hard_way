@@ -3,7 +3,7 @@
  * Created       : Mon Mar 13 2023
  * Author        : Zolo
  * Github        : https://github.com/zolodev
- * Description   : Zed A. Shaws Awesome Debug Macros
+ * Description   : Zed A. Shaws Awesome Debug Macros [modded]
  *****************************************************************************/
 
 // Toggle Disable DEBUG messages
