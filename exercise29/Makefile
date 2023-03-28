@@ -56,7 +56,7 @@ SO_TARGET=$(patsubst %.a,%.so,$(TARGET))
 all: $(TARGET) $(SO_TARGET) tests $(PROGRAMS)
 	mv $(PROGRAMS) bin
 
-dev: CFLAGS=-g -Wall -Isrc -Wextra $(OPTFLAGS)
+dev: CFLAGS=-g -Wall -Isrc -Wextra -DCOLORS $(OPTFLAGS)
 dev: all
 
 $(TESTS): $(TARGET) $(SO_TARGET)
