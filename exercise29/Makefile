@@ -1,32 +1,106 @@
-# Updated 2023-03-20
-# Changed from cc to clang
+################################################################################
+# Created and Updated : 2023-03-27
+# Author: Zolo
+# Description: 
+# Based on https://raw.githubusercontent.com/zedshaw/liblcthw/master/Makefile
+# Also credit to: http://www.and.org/and-httpd/
+#
+################################################################################
+
+# The Projectname
+PROJECT_NAME=ex29
+
+#Project Lib
+LIB_NAME=libex29
+
+# Target = The Output
+TARGET=build/$(LIB_NAME).a
+
+# Change compiler between: gcc | clang
+# Or comment this line to use DEFAULT $(CC)
+CC= clang
+
+
+################################################################################
+#
+# WARNING
+# Touch anything else below Bootstrap if you know what you are doing.
+#
+################################################################################
+
+
+
+############ Bootstrap ############
 
 #define "_CRT_SECURE_NO_WARNINGS" - To supress warnings.
-#									Because MS warns about strerror()
-CFLAGS = -Wall -g -D _CRT_SECURE_NO_WARNINGS
+#									Because Microsoft warns about strerror()
 
-#BIN := $(patsubst %.c, %.out, $(wildcard *.c))
-#BIN := $(patsubst %.c, %, $(wildcard *.c))
-BIN := $(patsubst %.c,build/%, $(wildcard *.c))
-OBJ := $(patsubst %.c,build/%.o, $(wildcard *.c))
+#CFLAGS=-g -O2 -Wall -Wextra -Isrc -rdynamic -DNDEBUG -D _CRT_SECURE_NO_WARNINGS $(OPTFLAGS)
+CFLAGS=-g -O2 -Wall -Wextra -Isrc -DNDEBUG -D _CRT_SECURE_NO_WARNINGS 
+LDFLAGS=-ldl $(OPTLIBS)
+PREFIX?=/usr/local
 
-all: $(OBJ)
-	./build.sh
-#	clang $(CFLAGS) $(OBJ) -o $(BIN)
-# $(CC) $(CFLAGS) $(OBJ) -o $(BIN)
+SOURCES=$(wildcard src/**/*.c src/*.c)	# Recursive find all *.c in /src
+HEADERS=$(wildcard src/**/*.h src/*.h)	# Recursive find all *.h in /src
+OBJECTS=$(patsubst %.c,%.o,$(SOURCES))	# Transform all SOURCES *.c files to *.o
 
-# Build OBJ(*.o) files to build/*.o
-# Using Automatic Variables
-# https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html
-build/%.o : %.c
-	mkdir -p $(@D)
-	clang $(CFLAGS) -c $< -o $@
-# $(CC) $(CFLAGS) -c $< -o $@
+TEST_SRC=$(wildcard tests/*_tests.c)	# All source tests *_tests.c
+TESTS=$(patsubst %.c,%,$(TEST_SRC))
 
-run:
-	./run.sh
+PROGRAMS_SRC=$(wildcard src/$(PROJECT_NAME)/*.c)
+PROGRAMS=$(patsubst %.c,%,$(PROGRAMS_SRC))
 
+SO_TARGET=$(patsubst %.a,%.so,$(TARGET))
+
+# The Target Build
+all: $(TARGET) $(SO_TARGET) tests $(PROGRAMS)
+	mv $(PROGRAMS) bin
+
+dev: CFLAGS=-g -Wall -Isrc -Wextra $(OPTFLAGS)
+dev: all
+
+$(TESTS): $(TARGET) $(SO_TARGET)
+
+$(TARGET): CFLAGS += -fPIC
+$(TARGET): build $(OBJECTS)
+	ar rcs $@ $(OBJECTS)
+	ranlib $@
+
+$(SO_TARGET): $(TARGET) $(OBJECTS)
+	$(CC) $(LDFLAGS) -shared -o $@ $(OBJECTS)
+
+build:
+	@mkdir -p build
+	@mkdir -p bin
+
+# The Unit Tests
+.PHONY: tests
+tests: CFLAGS += $(TARGET)
+tests: $(TESTS)
+	sh ./tests/runtests.sh
+
+valgrind:
+	VALGRIND="valgrind --log-file=/tmp/valgrind-%p.log" $(MAKE)
+
+# The Cleaner
 clean:
-	rm -rf build
-#	rm -rf build $(BIN)
-#	rm -rf $(BIN)
+	rm -rf build bin $(OBJECTS) $(TESTS) $(PROGRAMS)
+	rm -f tests/tests.log
+	find . -name "*.gc*" -exec rm {} \;
+#	rm -rf `find . -name "*.dSYM" -print`
+
+# The Install
+install: all
+	install -d $(DESTDIR)/$(PREFIX)/lib/$(LIB_NAME)/
+	install $(TARGET) $(DESTDIR)/$(PREFIX)/lib/$(LIB_NAME)/
+
+# The Checker
+check:
+	@echo Files with potentially dangerous functions.
+	@egrep '[^_.>a-zA-Z0-9](str(n?cpy|n?cat|xfrm|n?dup|str|pbrk|tok|_)|stpn?cpy|a?sn?printf|byte_)' $(SOURCES) $(HEADERS) || true
+
+# Test run
+run:
+	./bin/ex29 ./build/libex29.so print_message "Test string to print!"
+
+$(PROGRAMS): CFLAGS += $(TARGET)
