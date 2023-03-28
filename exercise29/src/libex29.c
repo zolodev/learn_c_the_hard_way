@@ -20,7 +20,7 @@ int print_message(const char *msg) {
 int uppercase(const char *msg) {
   int length = sizeof(length);
 
-  for (int i = 0; i < length; i++) {
+  for (int i = 0; i <= length; i++) {
     printf("%c", toupper(msg[i]));
   }
   printf("\n");
