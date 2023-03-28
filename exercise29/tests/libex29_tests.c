@@ -41,6 +41,7 @@ char *test_functions() {
 
   return NULL;
 }
+
 char *test_failures() {
   mu_assert(check_function("fail_on_purpose", "Hello", 1),
             "fail_on_purpose should fail.");
