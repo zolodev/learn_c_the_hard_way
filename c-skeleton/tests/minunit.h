@@ -17,8 +17,7 @@
 #define mu_suite_start() char *message = NULL
 
 #define mu_assert(test, message) \
-  if (!(test))                   \
-  {                              \
+  if (!(test)) {                 \
     log_err(message);            \
     return message;              \
   }
@@ -27,21 +26,16 @@
   debug("---->%s", " " #test); \
   message = test();            \
   tests_run++;                 \
-  if (message)                 \
-    return message;
+  if (message) return message;
 
 #define RUN_TESTS(name)                     \
-  int main(int argc, char *argv[])          \
-  {                                         \
+  int main(int argc, char *argv[]) {        \
     argc = (!argc);                         \
     log_info("----- RUNNING: %s", argv[0]); \
     char *result = name();                  \
-    if (result != 0)                        \
-    {                                       \
+    if (result != 0) {                      \
       log_err("FAILED: %s", result);        \
-    }                                       \
-    else                                    \
-    {                                       \
+    } else {                                \
       printf("\n");                         \
       log_info("ALL TESTS PASSED");         \
     }                                       \
