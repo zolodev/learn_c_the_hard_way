@@ -27,3 +27,5 @@ int uppercase(const char *msg) {
 
   return 0;
 }
+
+int fail_on_purpose(const char *msg) { return (msg != NULL); }

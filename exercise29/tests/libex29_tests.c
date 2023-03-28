@@ -43,8 +43,8 @@ char *test_functions() {
 }
 char *test_failures() {
   // TODO: this might work on linux, but needs to be verified
-  // mu_assert(check_function("fail_on_purpose", "Hello", 1),
-  //           "fail_on_purpose should fail.");
+  mu_assert(check_function("fail_on_purpose", "Hello", 1),
+            "fail_on_purpose should fail.");
 
   return NULL;
 }

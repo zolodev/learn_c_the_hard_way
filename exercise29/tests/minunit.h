@@ -30,7 +30,7 @@
 
 #define RUN_TESTS(name)                     \
   int main(int argc, char *argv[]) {        \
-    argc = 1;                               \
+    argc = (!argc);                         \
     log_info("----- RUNNING: %s", argv[0]); \
     char *result = name();                  \
     if (result != 0) {                      \
