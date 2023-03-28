@@ -39,27 +39,29 @@ CC=clang
 #									Because Microsoft warns about strerror()
 
 #CFLAGS=-g -O2 -Wall -Wextra -Isrc -rdynamic -DNDEBUG -D _CRT_SECURE_NO_WARNINGS $(OPTFLAGS)
-CFLAGS=-g -O2 -Wall -Wextra -Isrc -DNDEBUG -D _CRT_SECURE_NO_WARNINGS 
+CFLAGS=-g -O2 -Wall -Wextra -Ilib -DNDEBUG -D _CRT_SECURE_NO_WARNINGS 
 LDFLAGS=-ldl $(OPTLIBS)
 PREFIX?=/usr/local
 
-SOURCES=$(wildcard src/**/*.c src/*.c)	# Recursive find all *.c in /src
-HEADERS=$(wildcard src/**/*.h src/*.h)	# Recursive find all *.h in /src
+SOURCES=$(wildcard lib/**/*.c lib/*.c)	# Recursive find all *.c in /src
+HEADERS=$(wildcard lib/**/*.h lib/*.h)	# Recursive find all *.h in /src
 OBJECTS=$(patsubst %.c,%.o,$(SOURCES))	# Transform all SOURCES *.c files to *.o
 
 TEST_SRC=$(wildcard tests/*_tests.c)	# All source tests *_tests.c
 TESTS=$(patsubst %.c,%,$(TEST_SRC))
 
-PROGRAMS_SRC=$(wildcard src/$(PROJECT_NAME)/*.c)
+PROGRAMS_SRC=$(wildcard src/*.c)
 PROGRAMS=$(patsubst %.c,%,$(PROGRAMS_SRC))
 
 SO_TARGET=$(patsubst %.a,%.so,$(TARGET))
 
 # The Target Build
 all: $(TARGET) $(SO_TARGET) tests $(PROGRAMS)
+ifneq ("$(PROGRAMS)","")
 	mv $(PROGRAMS) bin
+endif
 
-dev: CFLAGS=-g -Wall -Isrc -Wextra -DCOLORS $(OPTFLAGS)
+dev: CFLAGS=-g -Wall -Ilib -Wextra -DCOLORS $(OPTFLAGS)
 dev: all
 
 $(TESTS): $(TARGET) $(SO_TARGET)

@@ -54,7 +54,9 @@ SO_TARGET=$(patsubst %.a,%.so,$(TARGET))
 
 # The Target Build
 all: $(TARGET) $(SO_TARGET) tests $(PROGRAMS)
+ifneq ("$(PROGRAMS)","")
 	mv $(PROGRAMS) bin
+endif
 
 dev: CFLAGS=-g -Wall -Isrc -Wextra -DCOLORS $(OPTFLAGS)
 dev: all
