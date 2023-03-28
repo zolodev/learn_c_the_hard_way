@@ -14,7 +14,7 @@
 PROJECT_NAME=myapp
 
 #Project Lib
-LIB_NAME=libskeleton
+LIB_NAME=mylib
 
 # Target = The Output
 TARGET=build/$(LIB_NAME).a
@@ -77,11 +77,15 @@ $(SO_TARGET): $(TARGET) $(OBJECTS)
 build:
 	@mkdir -p build
 	@mkdir -p bin
+	@mkdir -p tests/bin
 
 # The Unit Tests
 .PHONY: tests
 tests: CFLAGS += $(TARGET)
 tests: $(TESTS)
+ifneq ("$(PROGRAMS)","")
+	mv $(TESTS) tests/bin
+endif 
 	sh ./tests/runtests.sh
 
 valgrind:
@@ -89,7 +93,7 @@ valgrind:
 
 # The Cleaner
 clean:
-	rm -rf build bin $(OBJECTS) $(TESTS) $(PROGRAMS)
+	rm -rf build bin tests/bin $(OBJECTS) $(TESTS) $(PROGRAMS)
 	rm -f tests/tests.log
 	find . -name "*.gc*" -exec rm {} \;
 #	rm -rf `find . -name "*.dSYM" -print`

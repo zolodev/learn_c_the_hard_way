@@ -1,4 +1,4 @@
-# TODO: script to run tests
+#!/bin/bash
 echo "Running unit tests:"
 
 RED='\033[0;31m'
@@ -8,7 +8,7 @@ C_RESET="\033[0m"
 LOG_FILE=tests/tests.log
 
 
-for i in tests/*_tests
+for i in tests/bin/*_tests
 do
     if test -f $i
     then
