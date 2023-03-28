@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Filename      : libex29_tests.c
+ * Filename      : base_tests.c
  * Created       : Tue Mar 28 2023
  * Author        : Zolo
  * Github        : https://github.com/zolodev
@@ -11,7 +11,7 @@
 #include "minunit.h"
 
 typedef int (*lib_function)(const char *data);
-char *lib_file = "build/libex29.so";
+char *lib_file = "build/mylib.so";
 void *lib = NULL;
 
 int check_function(const char *func_to_run, const char *data, int expected) {
