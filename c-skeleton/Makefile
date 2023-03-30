@@ -83,7 +83,7 @@ build:
 .PHONY: tests
 tests: CFLAGS += $(TARGET)
 tests: $(TESTS)
-ifneq ("$(PROGRAMS)","")
+ifneq ("$(TESTS)","")
 	mv $(TESTS) tests/bin
 endif 
 	sh ./tests/runtests.sh
