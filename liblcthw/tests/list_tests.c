@@ -34,9 +34,8 @@ char *test_push() {
 }
 
 char *test_destroy() {
-  List_clear_destroy(list);
-  //   debug("destroy_list count? %d", list->count);
-  //   mu_assert(list->count == 0, "Failed to clear list");
+  List_destroy(list);
+  mu_assert(list->count == 0, "Failed to clear list");
 
   return NULL;
 }
