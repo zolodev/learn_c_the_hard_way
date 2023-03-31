@@ -13,6 +13,7 @@
 List *List_create() { return calloc(1, sizeof(List)); }
 
 void List_destroy(List *list) {
+  check(list, "Can not destroy the list, List is NULL.");
   LIST_FOREACH(list, first, next, cur) {
     if (cur->prev) {
       free(cur->prev);
@@ -26,10 +27,15 @@ void List_destroy(List *list) {
   // mitigating "free(): invalid pointer" error
   // on Windows and Linux
   list->count = 0;
+error:
+  return;
 }
 
 void List_clear(List *list) {
+  check(list, "Can not clear the list, List is NULL.");
   LIST_FOREACH(list, first, next, cur) { free(cur); }
+error:
+  return;
 }
 
 void List_clear_destroy(List *list) {
@@ -39,6 +45,8 @@ void List_clear_destroy(List *list) {
 
 /* Adds an item to the last in the list. */
 void List_push(List *list, void *value) {
+  check(list, "Can not push to the list, List is NULL.");
+  check(value, "Can not push a NULL Value.");
   ListNode *node = calloc(1, sizeof(ListNode));
   check_mem(node);
 
@@ -61,6 +69,8 @@ error:
 
 /* Adds an item to the first in the list. */
 void List_unshift(List *list, void *value) {
+  check(list, "Can not unshift to the list, List is NULL.");
+  check(value, "Can not unshift a NULL Value.");
   ListNode *node = calloc(1, sizeof(ListNode));
   check_mem(node);
 
