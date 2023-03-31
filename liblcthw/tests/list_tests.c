@@ -28,20 +28,24 @@ error:
 
 char *test_get_from_empty_list() {
   // Try fetch from empty list
-  mu_assert(List_last(list) == NULL, "Wrong last value.");
+  mu_assert(List_last(list) == NULL, "Expected NULL, got wrong last value.");
 
   return NULL;
 }
 
 char *test_push() {
   List_push(list, test1);
-  mu_assert(List_last(list) == test1, "Wrong last value.");
+  mu_assert(List_last(list) == test1, "Expected test1, got wrong last value.");
 
   List_push(list, test2);
-  mu_assert(List_last(list) == test2, "Wrong last value.");
+  mu_assert(List_last(list) == test2, "Expected test2, got wrong last value.");
 
   List_push(list, test3);
-  mu_assert(List_last(list) == test3, "Wrong last value.");
+  mu_assert(List_last(list) == test3, "Expected test3, got wrong last value.");
+
+  // Test NULL value, expect last inserted value
+  List_push(list, NULL);
+  mu_assert(List_last(list) == test3, "Expected test3, got wrong last value.");
 
   return NULL;
 }
@@ -77,7 +81,7 @@ char *test_shift() {
 
 char *test_destroy() {
   List_destroy(list);
-  mu_assert(list->count == 0, "Failed to clear list");
+  mu_assert(list->count == 0, "Expected count = 0, Failed to clear list");
 
   return NULL;
 }
