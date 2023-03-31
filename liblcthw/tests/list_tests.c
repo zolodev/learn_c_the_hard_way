@@ -45,7 +45,8 @@ char *test_push() {
 
   // Test NULL value, expect last inserted value
   List_push(list, NULL);
-  mu_assert(List_last(list) == test3, "Expected test3, got wrong last value.");
+  mu_assert(List_last(list) == test3,
+            "Expected test3 not NULL, got wrong last value.");
 
   return NULL;
 }
