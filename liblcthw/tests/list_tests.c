@@ -51,9 +51,6 @@ char *test_pop() {
   mu_assert(val == test3, "Wrong value on pop.");
 
   val = List_pop(list);
-  mu_assert(val == test2, "Wrong value on pop.");
-
-  val = List_pop(list);
   mu_assert(val == test1, "Wrong value on pop.");
 
   val = List_pop(list);
@@ -83,6 +80,17 @@ char *test_print_all_items_in_list() {
   return NULL;
 }
 
+char *test_remove() {
+  char *val = List_remove(list, list->first->next);
+
+  mu_assert(val == test2, "Wrong removed item.");
+  mu_assert(List_count(list) == 2, "Expected 2 items, got wrong count.");
+  mu_assert(List_first(list) == test1, "Expected test1, got wrong first item.");
+  mu_assert(List_last(list) == test3, "Expecte test3, got wrong last item.");
+
+  return NULL;
+}
+
 char *all_tests() {
   mu_suite_start();
 
@@ -91,6 +99,7 @@ char *all_tests() {
   mu_run_test(test_print_all_items_in_list);
   mu_run_test(test_get_from_empty_list);
   mu_run_test(test_push);
+  mu_run_test(test_remove);
   mu_run_test(test_print_all_items_in_list);
   mu_run_test(test_pop);
   mu_run_test(test_destroy);
