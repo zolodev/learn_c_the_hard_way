@@ -94,8 +94,17 @@ error:
 }
 
 void *List_pop(List *list) {
-  check(list, "Can not pop from the list, List is NULL.");
+  check(list, "Can not pop last from the list, List is NULL.");
   ListNode *node = list->last;
+
+  return node != NULL ? List_remove(list, node) : NULL;
+error:
+  return NULL;
+}
+
+void *List_shift(List *list) {
+  check(list, "Can not pop first from the list, List is NULL.");
+  ListNode *node = list->first;
 
   return node != NULL ? List_remove(list, node) : NULL;
 error:

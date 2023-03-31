@@ -48,13 +48,29 @@ char *test_push() {
 
 char *test_pop() {
   char *val = List_pop(list);
-  mu_assert(val == test3, "Wrong value on pop.");
+  mu_assert(val == test3, "Expected test3, got wrong value on pop.");
 
   val = List_pop(list);
-  mu_assert(val == test1, "Wrong value on pop.");
+  mu_assert(val == test2, "Expected test2, got wrong value on pop.");
 
   val = List_pop(list);
-  mu_assert(val == NULL, "Wrong value on pop.");
+  mu_assert(val == test1, "Expected test1, got wrong value on pop.");
+
+  val = List_pop(list);
+  mu_assert(val == NULL, "Expected NULL, got wrong value on pop.");
+
+  return NULL;
+}
+
+char *test_shift() {
+  char *val = List_shift(list);
+  mu_assert(val == test1, "Expected test1, got rong value on shift.");
+
+  val = List_shift(list);
+  mu_assert(val == test3, "Expected test3, got rong value on shift.");
+
+  val = List_shift(list);
+  mu_assert(val == NULL, "Expected NULL, got rong value on shift.");
 
   return NULL;
 }
@@ -100,6 +116,8 @@ char *all_tests() {
   mu_run_test(test_get_from_empty_list);
   mu_run_test(test_push);
   mu_run_test(test_remove);
+  mu_run_test(test_shift);
+  mu_run_test(test_push);
   mu_run_test(test_print_all_items_in_list);
   mu_run_test(test_pop);
   mu_run_test(test_destroy);
