@@ -37,6 +37,7 @@ void List_clear_destroy(List *list) {
   List_destroy(list);
 }
 
+/* Adds an item to the last in the list. */
 void List_push(List *list, void *value) {
   ListNode *node = calloc(1, sizeof(ListNode));
   check_mem(node);
@@ -58,6 +59,29 @@ error:
   return;
 }
 
+/* Adds an item to the first in the list. */
+void List_unshift(List *list, void *value) {
+  ListNode *node = calloc(1, sizeof(ListNode));
+  check_mem(node);
+
+  node->value = value;
+
+  if (list->first == NULL) {
+    list->first = node;
+    list->last = node;
+  } else {
+    node->next = list->first;
+    list->first->prev = node;
+    list->first = node;
+  }
+
+  list->count++;
+
+error:
+  return;
+}
+
+/* Removes an item in the list. */
 void *List_remove(List *list, ListNode *node) {
   void *result = NULL;
 
@@ -93,6 +117,7 @@ error:
   return result;
 }
 
+/* Gets the last item in the list. */
 void *List_pop(List *list) {
   check(list, "Can not pop last from the list, List is NULL.");
   ListNode *node = list->last;
@@ -102,6 +127,7 @@ error:
   return NULL;
 }
 
+/* Gets the first item in the list. */
 void *List_shift(List *list) {
   check(list, "Can not pop first from the list, List is NULL.");
   ListNode *node = list->first;
@@ -111,6 +137,7 @@ error:
   return NULL;
 }
 
+/* Prints all items in the list. */
 int List_print(List *list) {
   check(list, "Can not print from the list, List is NULL.");
   LIST_FOREACH(list, first, next, cur) { printf("%s\n", cur->value); }
