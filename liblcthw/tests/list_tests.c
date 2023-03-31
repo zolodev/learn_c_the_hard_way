@@ -26,9 +26,38 @@ error:
   return NULL;
 }
 
+char *test_get_from_empty_list() {
+  // Try fetch from empty list
+  mu_assert(List_last(list) == NULL, "Wrong last value.");
+
+  return NULL;
+}
+
 char *test_push() {
   List_push(list, test1);
   mu_assert(List_last(list) == test1, "Wrong last value.");
+
+  List_push(list, test2);
+  mu_assert(List_last(list) == test2, "Wrong last value.");
+
+  List_push(list, test3);
+  mu_assert(List_last(list) == test3, "Wrong last value.");
+
+  return NULL;
+}
+
+char *test_pop() {
+  char *val = List_pop(list);
+  mu_assert(val == test3, "Wrong value on pop.");
+
+  val = List_pop(list);
+  mu_assert(val == test2, "Wrong value on pop.");
+
+  val = List_pop(list);
+  mu_assert(val == test1, "Wrong value on pop.");
+
+  val = List_pop(list);
+  mu_assert(val == NULL, "Wrong value on pop.");
 
   return NULL;
 }
@@ -40,11 +69,30 @@ char *test_destroy() {
   return NULL;
 }
 
+char *test_print_null_list() {
+  int count = List_print(list);
+  mu_assert(count == -1, "Expected -1 got something else.");
+
+  return NULL;
+}
+
+char *test_print_all_items_in_list() {
+  int count = List_print(list);
+  mu_assert(count >= 0, "Failed to print items in list");
+
+  return NULL;
+}
+
 char *all_tests() {
   mu_suite_start();
 
+  mu_run_test(test_print_null_list);
   mu_run_test(test_create);
+  mu_run_test(test_print_all_items_in_list);
+  mu_run_test(test_get_from_empty_list);
   mu_run_test(test_push);
+  mu_run_test(test_print_all_items_in_list);
+  mu_run_test(test_pop);
   mu_run_test(test_destroy);
 
   return NULL;

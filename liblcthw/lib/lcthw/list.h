@@ -30,7 +30,10 @@ void List_clear(List *list);
 void List_destroy(List *list);
 void List_clear_destroy(List *list);
 
+int List_print(List *list);
 void List_push(List *list, void *value);
+void *List_pop(List *list);
+void *List_remove(List *list, ListNode *node);
 
 #define List_last(A) ((A)->last != NULL ? (A)->last->value : NULL)
 
