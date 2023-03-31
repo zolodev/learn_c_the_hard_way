@@ -13,11 +13,11 @@
 List *List_create() { return calloc(1, sizeof(List)); }
 
 void List_destroy(List *list) {
-  check(list, "Can not destroy the list, List is NULL.");
+  check(list, "Can not clear the list, List is NULL.");
   LIST_FOREACH(list, first, next, cur) {
-    if (cur->prev) {
-      free(cur->prev);
-    }
+    if (cur->prev) free(cur->prev);
+
+    free(cur);
   }
 
   free(list->last);
@@ -27,20 +27,9 @@ void List_destroy(List *list) {
   // mitigating "free(): invalid pointer" error
   // on Windows and Linux
   list->count = 0;
+
 error:
   return;
-}
-
-void List_clear(List *list) {
-  check(list, "Can not clear the list, List is NULL.");
-  LIST_FOREACH(list, first, next, cur) { free(cur); }
-error:
-  return;
-}
-
-void List_clear_destroy(List *list) {
-  List_clear(list);
-  List_destroy(list);
 }
 
 /* Adds an item to the last in the list. */
